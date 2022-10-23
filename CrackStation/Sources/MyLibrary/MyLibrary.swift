@@ -22,41 +22,72 @@ public class MyLibrary {
         return output.description
     }
     
-    /// Returns the cracked plain-text password.
-    /// If unable to crack, then <insert description of behavior here>.
-    public func crack(password: String) -> String {
+    /// Either returns the cracked plain-text password
+    /// or, if unable to crack, then returns nil.
+    public func crack(password: String) -> String? {
+        let lookuptable = try! MyLibrary.loadDictionaryFromDisk()
+        var crackPass = ""
+        var letter = ""
         
-        
-        return "NB"
-    }
-
-}
-
-/*public class MyLibrary {
-    private let weatherService: WeatherService
-
-    /// The class's initializer.
-    ///
-    /// Whenever we call the `MyLibrary()` constructor to instantiate a `MyLibrary` instance,
-    /// the runtime then calls this initializer.  The constructor returns after the initializer returns.
-    public init(weatherService: WeatherService? = nil) {
-        self.weatherService = weatherService ?? WeatherServiceImpl(serviceType: "mockServer")
-    }
-
-    public func isLucky(_ number: Int) async -> Bool? {
-        // Check the simple case first: 3, 5 and 8 are automatically lucky.
-        if number == 3 || number == 5 || number == 8 {
-            return true
+        if password.count % 8 != 0 {
+            print("1")
+            return nil
+            
+        } else {
+            print("password count = ", password.count)
+            for index in stride(from: 0, to: password.count, by: 1) {
+                letter += String(password[index])
+                print("index = ", index)
+                print("letter = ", letter)
+                
+                if letter.count == 40 {
+                    if let val = lookuptable[letter] {
+                        crackPass += val
+                        letter = ""
+                    } else {
+                        print("2")
+                        return nil
+                    }
+                }
+            }
         }
-
-        // Fetch the current weather from the backend.
-        // If the current temperature, in Farenheit, contains an 8, then that's lucky.
-        do {
-            let temperature = try await weatherService.getTemperature()
-            return temperature.contains("8")
-        } catch {
+        
+        if letter.count > 0 {
+            print(letter)
+            print("3")
             return nil
         }
+        
+        print("plainpass = ", crackPass)
+        return crackPass
+    }
+
+}
+
+extension String {
+
+    var length: Int {
+        return count
+    }
+
+    subscript (i: Int) -> String {
+        return self[i ..< i + 1]
+    }
+
+    func substring(fromIndex: Int) -> String {
+        return self[min(fromIndex, length) ..< length]
+    }
+
+    func substring(toIndex: Int) -> String {
+        return self[0 ..< max(0, toIndex)]
+    }
+
+    subscript (r: Range<Int>) -> String {
+        let range = Range(uncheckedBounds: (lower: max(0, min(length, r.lowerBound)),
+                                            upper: min(length, max(0, r.upperBound))))
+        let start = index(startIndex, offsetBy: range.lowerBound)
+        let end = index(start, offsetBy: range.upperBound - range.lowerBound)
+        return String(self[start ..< end])
     }
 }
-*/
+
