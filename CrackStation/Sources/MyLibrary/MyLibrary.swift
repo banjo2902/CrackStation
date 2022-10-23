@@ -30,22 +30,22 @@ public class MyLibrary {
         var letter = ""
         
         if password.count % 8 != 0 {
-            print("1")
+            //print("1")
             return nil
             
         } else {
-            print("password count = ", password.count)
+            //print("password count = ", password.count)
             for index in stride(from: 0, to: password.count, by: 1) {
                 letter += String(password[index])
-                print("index = ", index)
-                print("letter = ", letter)
+                //print("index = ", index)
+                //print("letter = ", letter)
                 
                 if letter.count == 40 {
                     if let val = lookuptable[letter] {
                         crackPass += val
                         letter = ""
                     } else {
-                        print("2")
+                        //print("2")
                         return nil
                     }
                 }
@@ -53,8 +53,8 @@ public class MyLibrary {
         }
         
         if letter.count > 0 {
-            print(letter)
-            print("3")
+            //print(letter)
+            //print("3")
             return nil
         }
         

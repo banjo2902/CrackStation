@@ -6,7 +6,7 @@
 
 ### What I build:
 
-* __*func crack()*__: Function crack is used to crack hashed password and return plain-text password. Called it from:
+* __*func crack()*__: Function crack is used to crack hashed password and return plain-text password. Otherwise, return nil. Called it from:
     
         MyLibrary().crack(password: "your hashed password")
         
