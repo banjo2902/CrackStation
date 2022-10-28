@@ -16,6 +16,8 @@ public class MyLibrary: Decrypter {
             return [:]
         }
     }
+    
+    
     /*
     static func encryptUsingSha1(from input: String) -> String {
         let inputData = Data(input.utf8)
