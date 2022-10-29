@@ -2,7 +2,7 @@ import Foundation
 import CryptoKit
 
 
-//@available(macOS 10.15, *)
+@available(macOS 10.15, *)
 public class CrackStation: Decrypter {
     required public init() { }
     static func loadDictionaryFromDisk() throws -> [String : String] {
@@ -18,6 +18,15 @@ public class CrackStation: Decrypter {
         }
     }
     
+    /// Input: a string.
+    /// Output: the string encrypted using the SHA-1 algorithm.
+    func encrypt(_ password: String) -> String {
+        let dataToHash = Data(password.utf8)
+        let prefix = "SHA 1 digest: "
+        let shaHashDescription = String(Insecure.SHA1.hash(data: dataToHash).description)
+        let shaHash = String(shaHashDescription.dropFirst(prefix.count - 1))
+        return shaHash
+    }
     
     /*
     static func encryptUsingSha1(from input: String) -> String {
@@ -29,55 +38,23 @@ public class CrackStation: Decrypter {
     /// Either returns the cracked plain-text password
     /// or, if unable to crack, then returns nil.
     public func decrypt(shaHash: String) -> String? {
-        do {
-            let lookuptable = try CrackStation.loadDictionaryFromDisk()
-            
-            var crackPass = ""
-            
-            if let val = lookuptable[shaHash] {
-                crackPass = val
-            }
-            
-            print("plainpass = ", crackPass)
-            return crackPass
-        } catch {
-            //handle error
-            return nil
-        }
+        let lookuptable = try! CrackStation.loadDictionaryFromDisk()
+        var crackPass = ""
         
-        /*if shaHash.count % 8 != 0 {
-            //print("1")
-            return nil
+        if let val = lookuptable[shaHash] {
+            crackPass = val
             
         } else {
-            //print("password count = ", password.count)
-            for index in stride(from: 0, to: shaHash.count, by: 1) {
-                letter += String(shaHash[index])
-                //print("index = ", index)
-                //print("letter = ", letter)
-                
-                if letter.count == 40 {
-                    if let val = lookuptable[letter] {
-                        crackPass += val
-                        letter = ""
-                    } else {
-                        //print("2")
-                        return nil
-                    }
-                }
-            }
+            return nil
         }
         
-        if letter.count > 0 {
-            //print(letter)
-            //print("3")
-            return nil
-        }*/
+        print("crackPass = ", crackPass)
+        return crackPass
     }
 
 }
 
-extension String {
+/*extension String {
 
     var length: Int {
         return count
@@ -104,3 +81,4 @@ extension String {
     }
 }
 
+*/

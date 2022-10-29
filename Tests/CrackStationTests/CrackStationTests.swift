@@ -25,4 +25,18 @@ final class CrackStationTests: XCTestCase {
         XCTAssertEqual(plainpassword, "CS")
     }
     
+    func testEmptyString() throws {
+        // Given
+        let myLibrary = CrackStation()
+        let password = ""
+        let shaHash = myLibrary.encrypt(password)
+        print("shaHash = ", shaHash)
+        
+        // When
+        let crackedPassword = myLibrary.decrypt(shaHash: shaHash)
+
+        // Then
+        XCTAssertEqual(crackedPassword, nil)
+    }
+    
 }
