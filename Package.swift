@@ -21,6 +21,7 @@ let package = Package(
         .target(
             name: "CrackStation",
             dependencies: [],
+            
             resources: [
                 .process("sha1.json")]
         ),

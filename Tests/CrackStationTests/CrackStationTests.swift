@@ -12,25 +12,11 @@ final class CrackStationTests: XCTestCase {
         // Then
         XCTAssertEqual(answer, "i")
     }
-    /*
-    func testEncryptUsingSha1() {
-        // Given
-        let str = "a"
-        
-        // When
-        let hashedstr = CrackStation.encryptUsingSha1(from: str)
-        
-        // Then
-        XCTAssertNotNil(hashedstr)
-        XCTAssertEqual(hashedstr, "SHA1 digest: 86f7e437faa5a7fce15d1ddcb9eaeaea377667b8")
-        
-    }
-    */
     
     func testDecrypt() {
         // Given
         let myLibrary = CrackStation()
-        let hashedpass = "CS561"
+        let hashedpass = ""
         
         // When
         let plainpassword = myLibrary.decrypt(shaHash: hashedpass)
@@ -39,4 +25,18 @@ final class CrackStationTests: XCTestCase {
         XCTAssertEqual(plainpassword, nil)
     }
     
+    /*func testEmptyString() throws {
+        // Given
+        let myLibrary = CrackStation()
+        let password = ""
+        let shaHash = myLibrary.encrypt(password)
+        print("shaHash = ", shaHash)
+        
+        // When
+        let crackedPassword = myLibrary.decrypt(shaHash: shaHash)
+
+        // Then
+        XCTAssertEqual(crackedPassword, nil)
+    }
+    */
 }

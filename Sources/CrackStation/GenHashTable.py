@@ -27,13 +27,20 @@ def sha1(str):
     # print(len(str))
 
     for i in range(len(str)):
-        hashedchar = hashlib.sha1(str[i].encode())
+        password = str[i]
+        hashedchar = hashlib.sha1(password.encode())
         result = hashedchar.hexdigest()
-        hashmap[result] = str[i]
+        hashmap[result] = password
+        
+        for j in range(len(str)):
+            password = str[i] + str[j]
+            hashedchar = hashlib.sha1(password.encode())
+            result = hashedchar.hexdigest()
+            hashmap[result] = password
 
     return hashmap
 
-with open('/Users/benchou/Documents/OSU/2022fall/CS561/hw5/MyLibrary/Sources/MyLibrary/sha1.json', 'w+') as f:
+with open('./sha1.json', 'w+') as f:
     str = "0123456789" + lowercaseAlphabets() + uppercaseAlphabets()
     map = json.dumps(sha1(str))
     f.write(map)
