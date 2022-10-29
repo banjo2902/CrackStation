@@ -1,6 +1,7 @@
 import Foundation
 import CryptoKit
 
+
 //@available(macOS 10.15, *)
 public class CrackStation: Decrypter {
     required public init() { }
@@ -28,11 +29,23 @@ public class CrackStation: Decrypter {
     /// Either returns the cracked plain-text password
     /// or, if unable to crack, then returns nil.
     public func decrypt(shaHash: String) -> String? {
-        let lookuptable = try! CrackStation.loadDictionaryFromDisk()
-        var crackPass = ""
-        var letter = ""
+        do {
+            let lookuptable = try CrackStation.loadDictionaryFromDisk()
+            
+            var crackPass = ""
+            
+            if let val = lookuptable[shaHash] {
+                crackPass = val
+            }
+            
+            print("plainpass = ", crackPass)
+            return crackPass
+        } catch {
+            //handle error
+            return nil
+        }
         
-        if shaHash.count % 8 != 0 {
+        /*if shaHash.count % 8 != 0 {
             //print("1")
             return nil
             
@@ -59,10 +72,7 @@ public class CrackStation: Decrypter {
             //print(letter)
             //print("3")
             return nil
-        }
-        
-        print("plainpass = ", crackPass)
-        return crackPass
+        }*/
     }
 
 }
