@@ -2,7 +2,7 @@ import Foundation
 import CryptoKit
 
 //@available(macOS 10.15, *)
-public class MyLibrary: Decrypter {
+public class CrackStation: Decrypter {
     required public init() { }
     static func loadDictionaryFromDisk() throws -> [String : String] {
         guard let path = Bundle.module.url(forResource: "sha1", withExtension: "json") else { return [:] }
@@ -28,7 +28,7 @@ public class MyLibrary: Decrypter {
     /// Either returns the cracked plain-text password
     /// or, if unable to crack, then returns nil.
     public func decrypt(shaHash: String) -> String? {
-        let lookuptable = try! MyLibrary.loadDictionaryFromDisk()
+        let lookuptable = try! CrackStation.loadDictionaryFromDisk()
         var crackPass = ""
         var letter = ""
         

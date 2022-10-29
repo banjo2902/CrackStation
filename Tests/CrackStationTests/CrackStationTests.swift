@@ -1,10 +1,10 @@
 import XCTest
-@testable import MyLibrary
+@testable import CrackStation
 
-final class MyLibraryTests: XCTestCase {
+final class CrackStationTests: XCTestCase {
     func testExample() throws {
         // Given
-        let lookuptable = try MyLibrary.loadDictionaryFromDisk()
+        let lookuptable = try CrackStation.loadDictionaryFromDisk()
         
         // When
         let answer = lookuptable["042dc4512fa3d391c5170cf3aa61e6a638f84342"]
@@ -18,7 +18,7 @@ final class MyLibraryTests: XCTestCase {
         let str = "a"
         
         // When
-        let hashedstr = MyLibrary.encryptUsingSha1(from: str)
+        let hashedstr = CrackStation.encryptUsingSha1(from: str)
         
         // Then
         XCTAssertNotNil(hashedstr)
@@ -29,7 +29,7 @@ final class MyLibraryTests: XCTestCase {
     
     func testDecrypt() {
         // Given
-        let myLibrary = MyLibrary()
+        let myLibrary = CrackStation()
         let hashedpass = "CS561"
         
         // When

@@ -1,4 +1,4 @@
-# MyLibrary
+# CrackStation
 
 CrackStation Implementation
 CS561
