@@ -18,7 +18,7 @@ final class CrackStationTests: XCTestCase {
         let str = "a"
         
         // When
-        let hashedstr = MyLibrary.encryptUsingSha1(from: str)
+        let hashedstr = CrackStation.encryptUsingSha1(from: str)
         
         // Then
         XCTAssertNotNil(hashedstr)
