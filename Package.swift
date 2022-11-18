@@ -23,7 +23,7 @@ let package = Package(
             dependencies: [],
             
             resources: [
-                .process("sha1.json")]
+                .process("HashTable.json")]
         ),
         .testTarget(
             name: "CrackStationTests",

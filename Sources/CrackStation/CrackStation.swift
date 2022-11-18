@@ -3,36 +3,30 @@ import CryptoKit
 
 
 public class CrackStation: Decrypter {
-    required public init() { }
-    static func loadDictionaryFromDisk() throws -> [String : String] {
-        guard let path = Bundle.module.url(forResource: "sha1", withExtension: "json") else { return [:] }
-        
-        let data = try Data(contentsOf: path)
-        let jsonResult = try JSONSerialization.jsonObject(with: data)
-        
-        if let lookupTable: Dictionary = jsonResult as? Dictionary<String, String> {
-            return lookupTable
-        } else {
-            return [:]
-        }
-    }
+    var lookupTable: Dictionary<String, String> = [:]
     
-    
-    /// Either returns the cracked plain-text password
-    /// or, if unable to crack, then returns nil.
-    public func decrypt(shaHash: String) -> String? {
-        print("shaHash = ", shaHash)
-        let lookuptable = try! CrackStation.loadDictionaryFromDisk()
-        var crackPass = ""
-        
-        if let val = lookuptable[shaHash] {
-            crackPass = val
-            print("crackPass = ", crackPass)
-            return crackPass
+    required public init?() {
+        // fetch the hash table
+        do{
+            guard let path = Bundle.module.url(forResource: "HashTable", withExtension: "json") else { return nil }
             
-        } else {
-            return nil
+            let data = try Data(contentsOf: path)
+            let jsonResult = try JSONSerialization.jsonObject(with: data)
+            
+            if let table: Dictionary = jsonResult as? Dictionary<String, String> {
+                self.lookupTable = table
+            } else {
+                self.lookupTable = [:]
+            }
+        } catch {
+            print("Error! Unable to fetch the hash table: HashTable.json")
         }
     }
-
+    
+    // Either returns the cracked plain-text password
+    // or, if unable to crack, then returns nil
+    public func decrypt(shaHash: String) -> String? {
+        return self.lookupTable[shaHash]
+    }
+    
 }
