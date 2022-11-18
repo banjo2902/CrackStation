@@ -29,7 +29,7 @@ def encrypt(hashmap: dict, password: str):
     result = hashedchar.hexdigest()
     hashmap[result] = password
 
-def sha1(str):
+def mvp(str):
     hashmap = {}
     length = len(str)
 
@@ -44,8 +44,8 @@ def sha1(str):
 
     return hashmap
 
-with open('./sha1.json', 'w+') as f:
+with open('./HashTable.json', 'w+') as f:
     str = "0123456789?!" + lowercaseAlphabets() + uppercaseAlphabets()
-    map = json.dumps(sha1(str))
+    map = json.dumps(mvp(str))
     f.write(map)
     # print(f.read())

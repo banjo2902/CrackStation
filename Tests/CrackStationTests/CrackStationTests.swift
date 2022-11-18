@@ -1,7 +1,7 @@
 import XCTest
 @testable import CrackStation
 
-final class CrackStationTests: XCTestCase {    
+final class CrackStationTests: XCTestCase {
     func testDecryptwithSha1HashedPass() {
         // Given
         let myLibrary = CrackStation()
@@ -24,5 +24,17 @@ final class CrackStationTests: XCTestCase {
         
         // Then
         XCTAssertEqual(plainpassword, "!gx")
+    }
+    
+    func testDecryptwithRandomStr() {
+        // Given
+        let myLibrary = CrackStation()
+        let hashedpass = "cs561hw9!"
+        
+        // When
+        let plainpassword = myLibrary?.decrypt(shaHash: hashedpass)
+        
+        // Then
+        XCTAssertEqual(plainpassword, nil)
     }
 }
