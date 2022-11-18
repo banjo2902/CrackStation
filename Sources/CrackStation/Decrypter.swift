@@ -1,7 +1,7 @@
 import Foundation
 
 public protocol Decrypter {
-    init()
+    init?()
 
     /// Either returns the cracked plain-text password
     /// or, if unable to crack, then returns nil.
