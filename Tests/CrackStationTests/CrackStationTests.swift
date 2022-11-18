@@ -8,7 +8,7 @@ final class CrackStationTests: XCTestCase {
         let hashedpass = "ab29513ea1e486249c0b00022765275878ce7e01"
         
         // When
-        let plainpassword = myLibrary?.decrypt(shaHash: hashedpass)
+        let plainpassword = myLibrary.decrypt(shaHash: hashedpass)
         
         // Then
         XCTAssertEqual(plainpassword, "D!G")
@@ -20,7 +20,7 @@ final class CrackStationTests: XCTestCase {
         let hashedpass = "e5bcba587c856aad400a3f3b9ef966c35c7480d5f5443c8992529f31951ecb70"
         
         // When
-        let plainpassword = myLibrary?.decrypt(shaHash: hashedpass)
+        let plainpassword = myLibrary.decrypt(shaHash: hashedpass)
         
         // Then
         XCTAssertEqual(plainpassword, "!gx")
@@ -32,7 +32,7 @@ final class CrackStationTests: XCTestCase {
         let hashedpass = "cs561hw9!"
         
         // When
-        let plainpassword = myLibrary?.decrypt(shaHash: hashedpass)
+        let plainpassword = myLibrary.decrypt(shaHash: hashedpass)
         
         // Then
         XCTAssertEqual(plainpassword, nil)
