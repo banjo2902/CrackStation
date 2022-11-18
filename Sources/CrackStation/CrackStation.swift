@@ -3,7 +3,9 @@ import CryptoKit
 
 
 public class CrackStation: Decrypter {
-    required public init() { }
+    required public init() {
+        
+    }
     static func loadDictionaryFromDisk() throws -> [String : String] {
         guard let path = Bundle.module.url(forResource: "sha1", withExtension: "json") else { return [:] }
         
