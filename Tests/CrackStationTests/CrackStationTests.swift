@@ -16,13 +16,13 @@ final class CrackStationTests: XCTestCase {
     func testDecrypt() {
         // Given
         let myLibrary = CrackStation()
-        let hashedpass = ""
+        let hashedpass = "0e0bd9224cae3992bdb822021f1daed06a2e0a72"
         
         // When
         let plainpassword = myLibrary.decrypt(shaHash: hashedpass)
         
         // Then
-        XCTAssertEqual(plainpassword, nil)
+        XCTAssertEqual(plainpassword, "CS")
     }
     
     /*func testEmptyString() throws {
