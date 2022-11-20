@@ -10,14 +10,16 @@ public class CrackStation: Decrypter {
         do{
             let path = Bundle.module.url(forResource: "HashTable", withExtension: "json")
             
-            if path != nil {
-                let data = try Data(contentsOf: path!)
+            if let url = path {
+                let data = try Data(contentsOf: url)
                 let jsonResult = try JSONSerialization.jsonObject(with: data)
                 if let table: Dictionary = jsonResult as? Dictionary<String, String> {
                     self.lookupTable = table
                 } else {
                     self.lookupTable = [:]
                 }
+            } else {
+                print("Error! Unable to unwrapped the path: HashTable.json")
             }
         } catch {
             print("Error! Unable to fetch the hash table: HashTable.json")
